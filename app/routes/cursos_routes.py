@@ -1,7 +1,7 @@
 # Importa funciones y objetos necesarios de Flask, db y cursos_model
 from flask import Blueprint, jsonify, request
-from models.cursos_model import obtener_cursos, registrar_curso, actualizar_curso, eliminar_curso
-from middlewares.middlewares import (
+from app.models.cursos_model import obtener_cursos, registrar_curso, actualizar_curso, eliminar_curso
+from app.middlewares.middlewares import (
     validate_json,
     validate_fields,
     validate_data_types,
