@@ -1,6 +1,7 @@
 # app/app.py
 from flask import Flask, g
 from flask_cors import CORS
+
 from app.routes.cursos_routes import cursos_routes
 from app.config import get_config
 from app.db import close_db, get_db
@@ -24,9 +25,9 @@ def teardown_request(exception=None):
 
 
 
-# if __name__ == '__main__':
-#     # app.config.from_object(get_config())
-#     # app.register_blueprint(cursos_routes)
-#     # app.register_error_handler(404, not_found)
-#     # print(f"Modo de depuración: {app.debug}") 
-#     app.run()
+if __name__ == '__main__':
+    # app.config.from_object(get_config())
+    # app.register_blueprint(cursos_routes)
+    # app.register_error_handler(404, not_found)
+    # print(f"Modo de depuración: {app.debug}") 
+    app.run()
