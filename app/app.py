@@ -1,8 +1,7 @@
 # app/app.py
 from flask import Flask, g
 from flask_cors import CORS
-# RECIEN LO MODIFIQUE PARA PROBAR
-from app.routes.cursos_routes import cursos_routes
+from routes.cursos_routes import cursos_routes
 from config import get_config
 from db import close_db, get_db
 from middlewares.middlewares import not_found
