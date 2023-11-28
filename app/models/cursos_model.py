@@ -1,5 +1,5 @@
 # Importa la función get_db del módulo db
-from db import get_db
+from app.db import get_db
 
 def obtener_cursos():
     try:

@@ -2,7 +2,7 @@
 
 import mysql.connector
 from flask import g
-from config import get_config
+from app.config import get_config
 
 def get_db():
     if 'db' not in g:
