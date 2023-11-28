@@ -28,7 +28,7 @@ class ProductionConfig(Config):
     # Configuración para producción
 
 def get_config():
-    env = os.environ.get('FLASK_ENV', 'development')
+    env = os.environ.get('MODE', 'development')
     if env == 'production':
         return ProductionConfig()
     else:
