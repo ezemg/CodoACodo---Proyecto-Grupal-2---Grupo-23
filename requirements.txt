@@ -1,8 +1,8 @@
 blinker
 click 
 colorama
-Flask==
-Flask-Cors==
+Flask
+Flask-Cors
 itsdangerous
 Jinja2
 MarkupSafe
