@@ -18,6 +18,13 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG = False
+    DB_CONFIG = {
+        'host': 'db4free.net',
+        'user': 'codocursosg23',
+        'password': 'codocursosg23',
+        'database': 'codocursosg23',
+        'port': 3306
+    }
     # Configuración para producción
 
 def get_config():

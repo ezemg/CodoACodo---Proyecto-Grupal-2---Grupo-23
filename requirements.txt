@@ -23,6 +23,8 @@ DB_USER='usuario de la db' por defecto es root
 DB_PASSWORD='password de la db' password que hayan elegido, en caso de no tener password avisarme y modificamos dos lineas de codigo
 DB_DATABASE='codoacodo' es el nombre que le di a la db en el script.
 DB_PORT='puerto en el que este la db' por defecto es el 3306.
+FLASK_ENV= 'development' o'production' usar por defecto el valor 'development'. 'production' es solamente para el proyecto que esté subido a un hosting.
+            si usan 'production' las solicitudes a la API van a caer directo a la db que está online.
 
 Este archivo es para que cada uno pueda poner sus credenciales de acceso a la base de datos y no tener que estar modificando el codigo fuente.
 
