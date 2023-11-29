@@ -35,6 +35,13 @@ POST    http://127.0.0.1:5000/cursos          -- Para crear un nuevo cursos
 PUT     http://127.0.0.1:5000/cursos/idcurso  -- Para modificar un curso existente (reemplazar idcurso por numero de id en la db)
 DELETE  http://127.0.0.1:5000/cursos/idcurso  -- Para eliminar un curso existente (reemplazar idcurso por numero de id en la db)
 
+Los endpoints de produccion (los que están subidos a render.com) son
+
+GET     https://codocursosbackend.onrender.com/cursos          -- Para listar todos los cursos
+POST    https://codocursosbackend.onrender.com/cursos          -- Para crear un nuevo cursos
+PUT     https://codocursosbackend.onrender.com/cursos/idcurso  -- Para modificar un curso existente (reemplazar idcurso por numero de id en la db)
+DELETE  https://codocursosbackend.onrender.com/cursos/idcurso  -- Para eliminar un curso existente (reemplazar idcurso por numero de id en la db)
+
 5) Para correr la app, desde la raiz del proyecto, ejecutar:
 
 python -m app.app
