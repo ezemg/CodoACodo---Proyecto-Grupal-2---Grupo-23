@@ -8,6 +8,8 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
+    UPLOAD_FOLDER = 'C:\\Users\\ezequ\\Desktop\\Coding\\CodoACodo\\Committt\\app\\assets\\img'
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
     DB_CONFIG = {
         'host': os.environ.get('DB_HOST'),
         'user': os.environ.get('DB_USER'),

@@ -10,6 +10,8 @@ from app.middlewares.middlewares import not_found
 app = Flask(__name__)
 CORS(app)
 app.config.from_object(get_config())
+
+
 app.register_blueprint(cursos_routes)
 app.register_error_handler(404, not_found)
 

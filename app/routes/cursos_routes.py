@@ -1,24 +1,35 @@
 # Importa funciones y objetos necesarios de Flask, db y cursos_model
-from flask import Blueprint, jsonify, request
-from app.models.cursos_model import obtener_cursos, registrar_curso, actualizar_curso, eliminar_curso
+from flask import Blueprint, jsonify, request, current_app as app
+
+from app.controllers.image_controller import subir_imagen
+from app.models.cursos_model import (
+    obtener_cursos, 
+    registrar_curso, 
+    actualizar_curso, 
+    eliminar_curso, 
+    obtener_curso_por_id
+    )
+
 from app.middlewares.middlewares import (
     validate_json,
     validate_fields,
     validate_data_types,
     handle_exception,
-    not_found)
-    
-# Crea un objeto Blueprint llamado curso_routes
+    not_found
+    )
+
+
+# Crea un objeto Blueprint llamado curso_routes para poder acceder desde archivo app y que las rutas queden registradas
 cursos_routes = Blueprint('curso_routes', __name__)
 
 # Middlewares
-cursos_routes.before_request(validate_json)
-cursos_routes.before_request(validate_fields)
-cursos_routes.before_request(validate_data_types)
-cursos_routes.errorhandler(Exception)(handle_exception)
-cursos_routes.errorhandler(404)(not_found)
+# cursos_routes.before_request(validate_json)
+# cursos_routes.before_request(validate_fields)
+# cursos_routes.before_request(validate_data_types)
+# cursos_routes.errorhandler(Exception)(handle_exception)
+# cursos_routes.errorhandler(404)(not_found)
 
-# Define una ruta para obtener cursos
+# Defino ruta para listar todos los cursos
 @cursos_routes.route('/cursos', methods=['GET'])
 def obtener_cursos_route():
     # Llama a la función obtener_cursos y obtiene la respuesta
@@ -26,15 +37,35 @@ def obtener_cursos_route():
     # Devuelve la respuesta como JSON
     return jsonify(response)
 
-# Define una ruta para registrar un curso
-@cursos_routes.route('/cursos', methods=['POST'])
+# Defino ruta para ver un solo curso
+@cursos_routes.route('/cursos/<int:id_curso>', methods=['GET'])
+def obtener_curso_por_id_route(id_curso):
+    response = obtener_curso_por_id(id_curso)
+
+    if 'error' in response:
+        return jsonify(response), response.get('status_code', 500)
+    else:
+        return jsonify(response)
+
+# Defino ruta para crear nuevo curso
+@cursos_routes.route('/cursos', methods=['POST'])   
 def registrar_curso_route():
-    # Obtiene nombre y créditos desde la solicitud JSON
-    nombre = request.json['nombre']
-    descripcion = request.json['descripcion']
-    img = request.json['img']
-    # Llama a la función registrar_curso y obtiene la respuesta
-    response = registrar_curso(nombre, descripcion, img)
+    # Obtiene otros datos desde el formulario
+    nombre = request.form['nombre']
+    descripcion = request.form['descripcion']
+
+    # Maneja el archivo de imagen
+    img = request.files['img']
+
+    img_public_url = None
+
+    if img:
+        # Llamo al controlador para que suba la imagen y me retorne la URL del hosting
+        img_public_url = subir_imagen(img)
+          
+    # Llama a la función registrar_curso del modelo para guardar en db
+    response = registrar_curso(nombre, descripcion, img_public_url)
+    
     # Devuelve la respuesta como JSON
     return jsonify(response)
 
