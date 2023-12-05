@@ -53,7 +53,6 @@ def registrar_curso_route():
     # Obtiene otros datos desde el formulario
     nombre = request.form['nombre']
     descripcion = request.form['descripcion']
-
     # Maneja el archivo de imagen
     img = request.files['img']
 
@@ -73,12 +72,19 @@ def registrar_curso_route():
 @cursos_routes.route('/cursos/<int:id_curso>', methods=['PUT'])
 def actualizar_curso_route(id_curso):
     # Obtiene nombre y créditos desde la solicitud JSON
-    nombre = request.json['nombre']
-    descripcion = request.json['descripcion']
-    img = request.json['img']
+    nombre = request.form['nombre']
+    descripcion = request.form['descripcion']
+    img = request.files.get('img')  # Usa get para manejar el caso en que 'img' no está presente
 
-    # Llama a la función actualizar_curso y obtiene la respuesta
-    response = actualizar_curso(id_curso, nombre, descripcion, img)
+    img_public_url = None
+
+    if img:
+        # Llamo al controlador para que suba la imagen y me retorne la URL del hosting
+        img_public_url = subir_imagen(img)
+
+    # Llama a la función actualizar_curso del modelo para actualizar en la base de datos
+    response = actualizar_curso(id_curso, nombre, descripcion, img_public_url)
+
     # Devuelve la respuesta como JSON
     return jsonify(response)
 
