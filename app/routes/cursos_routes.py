@@ -23,11 +23,11 @@ from app.middlewares.middlewares import (
 cursos_routes = Blueprint('curso_routes', __name__)
 
 # Middlewares
-# cursos_routes.before_request(validate_json)
-# cursos_routes.before_request(validate_fields)
-# cursos_routes.before_request(validate_data_types)
-# cursos_routes.errorhandler(Exception)(handle_exception)
-# cursos_routes.errorhandler(404)(not_found)
+cursos_routes.before_request(validate_json)
+cursos_routes.before_request(validate_fields)
+cursos_routes.before_request(validate_data_types)
+cursos_routes.errorhandler(Exception)(handle_exception)
+cursos_routes.errorhandler(404)(not_found)
 
 # Defino ruta para listar todos los cursos
 @cursos_routes.route('/cursos', methods=['GET'])
@@ -78,12 +78,14 @@ def actualizar_curso_route(id_curso):
 
     img_public_url = None
 
+    # Si hay imagen, subo la nueva imagen a cloudinary y guardo en la db
     if img:
-        # Llamo al controlador para que suba la imagen y me retorne la URL del hosting
         img_public_url = subir_imagen(img)
 
-    # Llama a la función actualizar_curso del modelo para actualizar en la base de datos
-    response = actualizar_curso(id_curso, nombre, descripcion, img_public_url)
+        response = actualizar_curso(id_curso, nombre, descripcion, img_public_url)
+    # Si no hay imagen, guardo en la db nombre y descripcion
+    else:
+        response = actualizar_curso(id_curso, nombre, descripcion)
 
     # Devuelve la respuesta como JSON
     return jsonify(response)

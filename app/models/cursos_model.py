@@ -60,12 +60,23 @@ def registrar_curso(nombre, descripcion, img_url):
         app.logger.error("Error registrando curso: %s", ex)
         return {'error': str(ex), 'status_code': 500}
 
-def actualizar_curso(id_curso, nombre, descripcion, img):
+# Le asigno None a img para que en caso de no venir desde el front, no me de error la funcion
+def actualizar_curso(id_curso, nombre, descripcion, img=None):
     try:
-       with get_db().cursor() as cursor:
-            sql = '''UPDATE curso SET nombre = '{0}', descripcion = '{1}', img = '{2}'
-                     WHERE idcurso = '{3}' '''.format(nombre, descripcion, img, id_curso)
-            cursor.execute(sql)
+        with get_db().cursor() as cursor:
+            # Verifica si se proporcionó una nueva imagen
+            if img:
+
+            # Si la subida de la imagen fue exitosa, actualiza el registro en la base de datos
+                sql = '''UPDATE curso SET nombre = '{0}', descripcion = '{1}', img = '{2}'
+                            WHERE idcurso = '{3}' '''.format(nombre, descripcion, img, id_curso)
+                cursor.execute(sql)
+                
+            else:
+                # Si no se proporciona una nueva imagen, actualiza solo el nombre y la descripción
+                sql = '''UPDATE curso SET nombre = '{0}', descripcion = '{1}'
+                         WHERE idcurso = '{2}' '''.format(nombre, descripcion, id_curso)
+                cursor.execute(sql)
 
             get_db().commit()
 
