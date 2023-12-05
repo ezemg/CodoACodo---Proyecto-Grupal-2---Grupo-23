@@ -10,24 +10,10 @@ from app.models.cursos_model import (
     obtener_curso_por_id
     )
 
-from app.middlewares.middlewares import (
-    validate_json,
-    validate_fields,
-    validate_data_types,
-    handle_exception,
-    not_found
-    )
-
 
 # Crea un objeto Blueprint llamado curso_routes para poder acceder desde archivo app y que las rutas queden registradas
 cursos_routes = Blueprint('curso_routes', __name__)
 
-# Middlewares
-cursos_routes.before_request(validate_json)
-cursos_routes.before_request(validate_fields)
-cursos_routes.before_request(validate_data_types)
-cursos_routes.errorhandler(Exception)(handle_exception)
-cursos_routes.errorhandler(404)(not_found)
 
 # Defino ruta para listar todos los cursos
 @cursos_routes.route('/cursos', methods=['GET'])
@@ -48,23 +34,23 @@ def obtener_curso_por_id_route(id_curso):
         return jsonify(response)
 
 # Defino ruta para crear nuevo curso
-@cursos_routes.route('/cursos', methods=['POST'])   
+@cursos_routes.route('/cursos', methods=['POST'])
 def registrar_curso_route():
     # Obtiene otros datos desde el formulario
     nombre = request.form['nombre']
     descripcion = request.form['descripcion']
     # Maneja el archivo de imagen
-    img = request.files['img']
+    img = request.files.get('img')  # Usa get para manejar el caso en que 'img' no está presente
 
     img_public_url = None
 
     if img:
         # Llamo al controlador para que suba la imagen y me retorne la URL del hosting
         img_public_url = subir_imagen(img)
-          
+
     # Llama a la función registrar_curso del modelo para guardar en db
     response = registrar_curso(nombre, descripcion, img_public_url)
-    
+
     # Devuelve la respuesta como JSON
     return jsonify(response)
 
