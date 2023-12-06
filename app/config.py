@@ -25,7 +25,7 @@ class ProductionConfig(Config):
         'user': 'codocursosg23',
         'password': 'codocursosg23',
         'database': 'codocursosg23',
-        'port': 3306
+        'port': int(3306)
     }
     # Configuración para producción
 

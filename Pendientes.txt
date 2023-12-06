@@ -1,2 +1,0 @@
-- Ver validaciones como middlewares, estan desactivados
-- Armar logica de editar curso. Tengo que leer primero el curso existente, mandar la data, y ver si hubo o no modificaciones

@@ -2,6 +2,7 @@
 from flask import Flask, g
 from flask_cors import CORS
 
+# importaciones modulos propios
 from app.routes.cursos_routes import cursos_routes
 from app.config import get_config
 from app.db import close_db, get_db
