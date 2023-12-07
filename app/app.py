@@ -31,6 +31,6 @@ def teardown_request(exception=None):
 if __name__ == '__main__':
     # app.config.from_object(get_config())
     # app.register_blueprint(cursos_routes)
-    # app.register_error_handler(404, not_found)
+    app.register_error_handler(404, not_found)
     # print(f"Modo de depuración: {app.debug}") 
     app.run()

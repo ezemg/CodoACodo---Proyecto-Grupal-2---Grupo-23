@@ -29,8 +29,10 @@ def obtener_curso_por_id_route(id_curso):
     response = obtener_curso_por_id(id_curso)
 
     if 'error' in response:
+        print(response)
         return jsonify(response), response.get('status_code', 500)
     else:
+
         return jsonify(response)
 
 # Defino ruta para crear nuevo curso
@@ -40,6 +42,7 @@ def registrar_curso_route():
     nombre = request.form['nombre']
     descripcion = request.form['descripcion']
     # Maneja el archivo de imagen
+
     img = request.files.get('img')  # Usa get para manejar el caso en que 'img' no está presente
 
     img_public_url = None
@@ -61,7 +64,6 @@ def actualizar_curso_route(id_curso):
     nombre = request.form['nombre']
     descripcion = request.form['descripcion']
     img = request.files.get('img')  # Usa get para manejar el caso en que 'img' no está presente
-
     img_public_url = None
 
     # Si hay imagen, subo la nueva imagen a cloudinary y guardo en la db

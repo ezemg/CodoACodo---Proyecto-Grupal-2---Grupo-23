@@ -21,10 +21,10 @@ class DevelopmentConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
     DB_CONFIG = {
-        'host': 'db4free.net',
-        'user': 'codocursosg23',
-        'password': 'codocursosg23',
-        'database': 'codocursosg23',
+        'host': 'sql10.freemysqlhosting.net',
+        'user': 'sql10668517',
+        'password': 'z8eerYDapW',
+        'database': 'sql10668517',
         'port': int(3306)
     }
     # Configuración para producción

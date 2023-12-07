@@ -29,8 +29,10 @@ def obtener_curso_por_id(id_curso):
             cursor.execute(sql)
             datos = cursor.fetchone()
 
-            if not datos:
+
+            if datos == None:
                 raise ValueError ('No existen cursos bajo el id numero: {0}'.format(id_curso))
+            
                 
             # Construye la lista de cursos con la información obtenida de la base de datos
             curso = {'codigo': datos[0], 'nombre': datos[1], 'descripcion': datos[2], 'img': datos[3]}
